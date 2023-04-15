@@ -33,7 +33,7 @@ model = lstm_model(vecob_size,n_layers,embedding_dim,hidden_dim,False,dropout).t
 # model = rnn_model(vecob_size,n_layers,embedding_dim,hidden_dim,False,dropout).to(device)
 print(model)
 
-criterion = nn.BCELoss()  # we use BCELoss cz we have binary classification problem
+criterion = nn.BCELoss()  
 optimizer = Adam(model.parameters(), lr=1e-3)
 grad_clip = 5
 
@@ -64,7 +64,7 @@ for epoch in range(20):
 
             # update optimizer
             optimizer.step()
-            del inputs, labals, predict_labels
+            del inputs, labals, predict_labels #free some memory
       print("epoch is:",epoch,"\ttrain_loss is:",epoch_loss,"\ttrain_acc is:",epoch_acc)
 
 path = './Model/sentimentAnalysisModel.pkl'

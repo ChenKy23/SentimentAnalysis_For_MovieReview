@@ -21,7 +21,7 @@ with torch.no_grad():
             data=data[0].to(device)
             pre_labels = model(data)  #get predicted res for batch data
             test_pre_labels += pre_labels.cpu()
-            torch.cuda.empty_cache()
+            torch.cuda.empty_cache() #free some memory
 
 test_pre_labels=[1 if i >0.5 else 0 for i in test_pre_labels]
 out = pd.DataFrame(data={"id":test["id"], "sentiment":test_pre_labels})
