@@ -10,7 +10,7 @@ test = pd.read_csv( "./Data/testData.tsv.zip", header=0, delimiter="\t", quoting
 # test
 model=torch.load(path)
 model.eval()
-test_pre_labels=[]
+test_pre_labels=[] #save predicted labels to list
 bg=0
 batchs=200
 testDataSet=TensorDataset(torch.from_numpy(encodedTestFeatures))
@@ -19,7 +19,7 @@ with torch.no_grad():
       for i,data in enumerate(testDataLoader):
             print("i=",i,"\tinputSize=",data[0].shape)
             data=data[0].to(device)
-            pre_labels = model(data)
+            pre_labels = model(data)  #get predicted res for batch data
             test_pre_labels += pre_labels.cpu()
             torch.cuda.empty_cache()
 

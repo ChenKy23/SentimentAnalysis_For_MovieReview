@@ -12,7 +12,7 @@ class lstm_model(nn.Module):
         self.embedding = nn.Embedding(vecob_size, embedding_dim=embedding_dim)
         # [300] => [512]
         self.rnn = nn.LSTM(input_size=embedding_dim, hidden_size=hidden_dim, num_layers=num_layers, dropout=dropout, bidirectional=bidirectional, batch_first=True)
-        # [512] => [1]
+        # [512] => [1] get predicted labels of pos or neg
         self.fc = nn.Linear(hidden_dim, 1)
         self.dropout = nn.Dropout(0.3)
         self.sigmoid = nn.Sigmoid()

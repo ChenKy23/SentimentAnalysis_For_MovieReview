@@ -13,11 +13,11 @@ trainLabels=train.loc[:,"sentiment"].values
 
 print("Read %d labeled train reviews, %d labeled test reviews, "  % (train["review"].size, test["review"].size))
 
-words = []
+words = [] #collect word used in all reviews
 reviewLenSum=0
 
 print("Parsing sentences from training set..")
-sentencesTrain,parse_words_train,reviewLenCount=parseSentences(train["review"],tokenizer)
+sentencesTrain,parse_words_train,reviewLenCount=parseSentences(train["review"],tokenizer) #transform raw reviews into tokens list
 words+=parse_words_train
 reviewLenSum+=reviewLenCount
 
@@ -36,7 +36,7 @@ print("transform sentences to encodedFeature")
 encodedTrain = getEncodedSentences(word2Idx,sentencesTrain)
 encodedTest = getEncodedSentences(word2Idx,sentencesTest)
 
-encodedTrainFeatures = pad_features(encodedTrain, pad_id=word2Idx['<PAD>'], seq_length=avgReviewLen)
+encodedTrainFeatures = pad_features(encodedTrain, pad_id=word2Idx['<PAD>'], seq_length=avgReviewLen) #fill the sentence to the same length when the sentence is too short, otherwise truncate it
 encodedTestFeatures = pad_features(encodedTest, pad_id=word2Idx['<PAD>'], seq_length=avgReviewLen)
 
 np.save('./Data/encodedTrainFeatures.npy',encodedTrainFeatures)
